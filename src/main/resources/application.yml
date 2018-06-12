@@ -1,0 +1,14 @@
+# 心跳检测检测与续约时间
+# 测试时将值设置设置小些，保证服务关闭后注册中心能及时踢出服务
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+  client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+spring:
+  application:
+    name: ribbon
+server:
+  port: 9000
