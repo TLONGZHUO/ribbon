@@ -1,18 +1,20 @@
 package com.franics.ribbon;
 
+import com.franics.ribbon.service.ComputeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
+@RequestMapping("/ribbon")
 public class ConsumerController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    ComputeService computeService;
 
-    @GetMapping(value = "/ribbon")
-    public String add() {
-        return restTemplate.getForEntity("http://clienta/api/clienta/login", String.class).getBody();
+    @GetMapping(value = "/{serverNAME}/{serverDO}")
+    public String add(@PathVariable("serverNAME") String serverNAME,
+                      @PathVariable("serverDO") String serverDO) {
+        return computeService.myService(serverNAME,serverDO);
     }
 }
